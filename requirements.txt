@@ -1,0 +1,8 @@
+piper-tts
+PyMuPDF
+python-docx
+pydub
+audioop-lts
+tqdm
+nltk
+textstat
