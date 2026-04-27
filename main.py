@@ -34,7 +34,7 @@ def main():
 =========================================================
     """)
     parser = argparse.ArgumentParser(description="Audiobook Maker")
-    parser.add_argument("input_file", nargs='?', help="Path to input text/pdf/docx")
+    parser.add_argument("input_file", nargs='?', help="Path to input text/pdf/docx/epub")
     parser.add_argument("--gender", choices=["male", "female"], help="Quickly select voice gender")
     parser.add_argument("--voice", help="Override with a specific Piper voice model")
     parser.add_argument("--workers", type=int, help="Number of parallel TTS workers")
@@ -43,7 +43,7 @@ def main():
 
     # Interactive prompts for missing arguments
     if not args.input_file:
-        args.input_file = input("\nEnter the path to your input file (TXT/PDF/DOCX): ").strip()
+        args.input_file = input("\nEnter the path to your input file (TXT/PDF/DOCX/EPUB): ").strip()
         # Remove quotes if file was dragged and dropped into terminal
         if (args.input_file.startswith("'") and args.input_file.endswith("'")) or (args.input_file.startswith('"') and args.input_file.endswith('"')):
             args.input_file = args.input_file[1:-1]

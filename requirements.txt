@@ -6,3 +6,5 @@ audioop-lts
 tqdm
 nltk
 textstat
+EbookLib
+beautifulsoup4

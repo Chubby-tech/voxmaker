@@ -11,6 +11,8 @@ def extract_text(file_path: str) -> str:
         return _extract_pdf(file_path)
     elif ext == '.docx':
         return _extract_docx(file_path)
+    elif ext == '.epub':
+        return _extract_epub(file_path)
     elif ext == '.txt':
         return _extract_txt(file_path)
     else:
@@ -41,3 +43,19 @@ def _extract_docx(file_path: str) -> str:
 def _extract_txt(file_path: str) -> str:
     with open(file_path, 'r', encoding='utf-8') as f:
         return f.read()
+
+def _extract_epub(file_path: str) -> str:
+    try:
+        import ebooklib
+        from ebooklib import epub
+        from bs4 import BeautifulSoup
+    except ImportError:
+        raise ImportError("EbookLib and beautifulsoup4 are required for EPUB. Run 'pip install EbookLib beautifulsoup4'")
+        
+    book = epub.read_epub(file_path)
+    text = []
+    for item in book.get_items():
+        if item.get_type() == ebooklib.ITEM_DOCUMENT:
+            soup = BeautifulSoup(item.get_body_content(), 'html.parser')
+            text.append(soup.get_text(separator='\n'))
+    return "\n".join(text)
